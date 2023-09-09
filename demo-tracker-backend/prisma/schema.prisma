@@ -1,0 +1,28 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Currency {
+  id          Int      @id @default(autoincrement())
+  name        String
+  email       String
+  description String
+  createdAt   DateTime @default(now()) // Optional: Track creation timestamp
+
+  @@map("currencies") 
+}
+
+model CurrencyPrice {
+  id        Int      @id @default(autoincrement())
+  currency  String
+  price     Decimal
+  createdAt DateTime @default(now())
+}

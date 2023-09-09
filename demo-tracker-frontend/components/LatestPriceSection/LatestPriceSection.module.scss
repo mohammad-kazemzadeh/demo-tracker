@@ -1,0 +1,30 @@
+.section {
+  width: 80%;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 16px;
+  padding: 16px;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  //   justify-content: space-between;
+  justify-content: flex-start;
+  gap: 16px;
+  //   min-width: 250px;
+  min-width: 100%;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+@media (max-width: 1368px) {
+  .section {
+    width: 60%;
+  }
+}

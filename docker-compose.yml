@@ -1,6 +1,7 @@
 version: "3"
 services:
   frontend:
+    container_name: frontend
     build:
       context: ./demo-tracker-frontend
     command: ["npm", "start"]
@@ -10,15 +11,15 @@ services:
     #   - ./demo-tracker-frontend:/app_frontend
     depends_on:
       - backend
-    networks:
-      - network
 
   backend:
+    container_name: backend
+    restart: always
     build:
       context: ./demo-tracker-backend
-    # command: ["npm", "run", "start:migrate:prod"]
-    command:
-      ["sh", "-c", "npx prisma migrate deploy && npm run start:migrate:prod"]
+    command: ["npm", "run", "start:migrate:prod"]
+    # command:
+    #   ["sh", "-c", "npx prisma migrate deploy && npm run start:migrate:prod"]
 
     ports:
       - "3001:3000"
@@ -28,10 +29,11 @@ services:
       mysql:
         condition: service_healthy
     environment:
-      DATABASE_URL: "mysql://root:passbackendtrackerword@demo-tracker-mysql:3306/demo_tracker_mysql?connect_timeout=300"
-    networks:
-      - network
+      DATABASE_URL: "mysql://root:passbackendtrackerword@db:3306/demo_tracker_mysql?connect_timeout=300"
+
   mysql:
+    container_name: db
+    restart: always
     build:
       context: ./mysql
     environment:
@@ -43,8 +45,3 @@ services:
       retries: 20
     ports:
       - "3306:3306"
-    networks:
-      - network
-
-networks:
-  network:

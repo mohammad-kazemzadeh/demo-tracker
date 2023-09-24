@@ -18,12 +18,11 @@ services:
     build:
       context: ./demo-tracker-backend
     # command: ["npm", "run", "start:migrate:prod"]
-    command: ["sh", "-c", "npm run build && npm run start:migrate:prod"]
 
     ports:
       - "3001:3000"
-    volumes:
-      - ./demo-tracker-backend:/app_backend
+    # volumes:
+    # - ./demo-tracker-backend:/app_backend
     depends_on:
       mysql:
         condition: service_healthy
